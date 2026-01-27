@@ -27,6 +27,22 @@ model Merchant {
   created_at         DateTime @default(now())
   updated_at         DateTime @updatedAt
   otps               OTP[]
+  webhook_logs       WebhookLog[]
+}
+
+model WebhookLog {
+  id            String   @id @default(cuid())
+  merchant      Merchant @relation(fields: [merchantId], references: [id])
+  merchantId    String
+  event_type    String
+  status        String   // success, pending, failed
+  url           String
+  payload       Json
+  response      Json?
+  attempts      Int      @default(0)
+  last_attempt  DateTime?
+  next_retry    DateTime?
+  created_at    DateTime @default(now())
 }
 
 model OTP {
