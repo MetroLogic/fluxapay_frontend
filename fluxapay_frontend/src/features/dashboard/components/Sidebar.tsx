@@ -9,6 +9,7 @@ import {
   Landmark,
   BarChart3,
   Settings,
+  Code,
   X,
 } from "lucide-react";
 import Image from "next/image";
@@ -25,7 +26,9 @@ const navItems = [
   { name: "Payments", href: "/dashboard/payments", icon: CreditCard },
   { name: "Settlements", href: "/dashboard/settlements", icon: Landmark },
   { name: "Analytics", href: "/dashboard/analytics", icon: BarChart3 },
+  { name: "Webhooks", href: "/dashboard/webhooks", icon: Code },
   { name: "Settings", href: "/dashboard/settings", icon: Settings },
+  { name: "Developers", href: "/dashboard/developers", icon: Code },
 ];
 
 export function Sidebar({ className, isOpen, onClose }: SidebarProps) {
