@@ -5,6 +5,9 @@ import { specs } from "./docs/swagger";
 import prisma from "./lib/prisma";
 import merchantRoutes from "./routes/merchant.route";
 import paymentRoutes from "./routes/payment.route";
+import settlementRoutes from "./routes/settlement.route";
+import kycRoutes from "./routes/kyc.route";
+import webhookRoutes from "./routes/webhook.route";
 
 const app = express();
 
@@ -16,6 +19,9 @@ app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(specs));
 
 app.use("/api/merchants", merchantRoutes);
 app.use("/api/payments", paymentRoutes);
+app.use("/api/settlements", settlementRoutes);
+app.use("/api/merchants/kyc", kycRoutes);
+app.use("/api/webhooks", webhookRoutes);
 
 // Basic health check
 app.get("/health", (req, res) => {
