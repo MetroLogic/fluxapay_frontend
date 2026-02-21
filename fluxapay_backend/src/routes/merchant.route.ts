@@ -5,6 +5,8 @@ import {
   verifyOtp,
   resendOtp,
   getLoggedInMerchant,
+  rotateApiKey,
+  rotateWebhookSecret,
 } from "../controllers/merchant.controller";
 import { validate } from "../middleware/validation.middleware";
 import * as merchantSchema from "../schemas/merchant.schema";
@@ -166,4 +168,55 @@ router.post("/resend-otp", validate(merchantSchema.resendOtpSchema), resendOtp);
  *         description: Merchant not found
  */
 router.get("/me", authenticateToken, getLoggedInMerchant);
+
+/**
+ * @swagger
+ * /api/merchants/keys/rotate-api-key:
+ *   post:
+ *     summary: Rotate merchant API key
+ *     tags: [Merchants]
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: API key rotated successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                 apiKey:
+ *                   type: string
+ */
+router.post("/keys/rotate-api-key", authenticateToken, rotateApiKey);
+
+/**
+ * @swagger
+ * /api/merchants/keys/rotate-webhook-secret:
+ *   post:
+ *     summary: Rotate merchant webhook secret
+ *     tags: [Merchants]
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: Webhook secret rotated successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                 webhookSecret:
+ *                   type: string
+ */
+router.post(
+  "/keys/rotate-webhook-secret",
+  authenticateToken,
+  rotateWebhookSecret,
+);
+
 export default router;
